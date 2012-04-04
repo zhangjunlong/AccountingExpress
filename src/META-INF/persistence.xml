@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="1.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+	<persistence-unit name="AccountingExpress"
+		transaction-type="RESOURCE_LOCAL">
+		<description>Persistence Unit Of AE</description>
+
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		
+		<class>com.openthinks.ae.account.Account</class>
+		<class>com.openthinks.ae.profile.User</class>
+		<class>com.openthinks.ae.message.Message</class>
+		<class>com.openthinks.ae.profile.Tenant</class>
+
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />
+			<property name="hibernate.cache.provider_class" value="org.hibernate.cache.EhCacheProvider" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.cache.use_second_level_cache"
+				value="true" />
+			<property name="hibernate.cache.use_query_cache" value="false" />
+		</properties>
+	</persistence-unit>
+</persistence>
