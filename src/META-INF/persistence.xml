@@ -10,8 +10,8 @@
 		
 		<class>com.openthinks.ae.account.Account</class>
 		<class>com.openthinks.ae.profile.User</class>
-		<class>com.openthinks.ae.message.Message</class>
 		<class>com.openthinks.ae.profile.Tenant</class>
+		<class>com.openthinks.ae.bill.Bill</class>
 
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />
