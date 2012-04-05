@@ -43,7 +43,7 @@ public class SignController extends ValidationAwareSupport implements
 	// Model for interacting
 	private Account model = new User();
 
-	private Message msg;
+	private ResponseContent msg;
 
 	@Autowired
 	private AccountService accountService;
@@ -53,12 +53,12 @@ public class SignController extends ValidationAwareSupport implements
 			model.setRole(Role.USER);
 			accountService.create(model);
 
-			msg = new Message(Message.SUCCESS);
+			msg = new ResponseContent(ResponseContent.SUCCESS);
 			addActionMessage("Account created successfully");
 			return new DefaultHttpHeaders("success").setLocation(model
 					.getUserId());
 		} catch (Exception e) {
-			msg = new Message(Message.FAILURE);
+			msg = new ResponseContent(ResponseContent.FAILURE);
 			addActionMessage("Account created failed");
 
 			return GenericRestfulController.ACCEPTED;
@@ -88,8 +88,8 @@ public class SignController extends ValidationAwareSupport implements
 			else
 				session.put("roleName", "普通用户");
 
-			msg = new Message(Message.SUCCESS, "console");
-			msg.setExtend(account);
+			msg = new ResponseContent(ResponseContent.SUCCESS, "console");
+			msg.setData(account);
 
 			if (account.getRole().equals(Role.ADMIN)) {
 
@@ -101,7 +101,7 @@ public class SignController extends ValidationAwareSupport implements
 			} else {
 
 				msg.setDescription("client");
-				msg.setExtend(account);
+				msg.setData(account);
 				logger.info("Account: " + account.getId()
 						+ " signed in as a user.");
 
@@ -112,7 +112,7 @@ public class SignController extends ValidationAwareSupport implements
 		} else {
 			session.put("message", "login failed");
 
-			msg = new Message(Message.FAILURE, "密码或者用户名错误");
+			msg = new ResponseContent(ResponseContent.FAILURE, "密码或者用户名错误");
 
 			return new DefaultHttpHeaders("error").setLocationId(model.getId());
 		}
@@ -136,9 +136,9 @@ public class SignController extends ValidationAwareSupport implements
 	public String check() throws Exception {
 		Account acc = accountService.find(model.getUserId());
 		if (acc != null) {
-			msg = new Message(Message.FAILURE, "用户名已存在");
+			msg = new ResponseContent(ResponseContent.FAILURE, "用户名已存在");
 		} else {
-			msg = new Message(Message.SUCCESS, "用户名可用");
+			msg = new ResponseContent(ResponseContent.SUCCESS, "用户名可用");
 		}
 
 		return null;

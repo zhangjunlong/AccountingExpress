@@ -13,12 +13,15 @@ import com.openthinks.ae.account.service.AccountService;
 import com.openthinks.ae.bill.Bill;
 import com.openthinks.ae.bill.service.BillService;
 import com.openthinks.ae.rest.GenericRestfulController;
-import com.openthinks.ae.rest.Message;
 import common.Logger;
 
 @Results({ @Result(name = "success", type = "redirectAction", params = {
 		"actionName", "bill" }) })
 public class BillController extends GenericRestfulController {
+
+	public BillController() {
+		super(new Bill());
+	}
 
 	/**
 	 * 
@@ -27,11 +30,7 @@ public class BillController extends GenericRestfulController {
 
 	private static final Logger logger = Logger.getLogger(BillController.class);
 
-	Bill model = new Bill();
-
 	Collection<Bill> bills;
-
-	Message msg;
 
 	BillService billService;
 
@@ -43,14 +42,6 @@ public class BillController extends GenericRestfulController {
 
 	public void setAccountService(AccountService accountService) {
 		this.accountService = accountService;
-	}
-
-	@Override
-	public Object getModel() {
-		if (msg != null)
-			return msg;
-		else
-			return (null != bills ? bills : model);
 	}
 
 	@Override
@@ -72,20 +63,16 @@ public class BillController extends GenericRestfulController {
 					.getSession();
 			long uid = (Long) session.get("id");
 
-			bills = billService.retrieveMsgs(uid);
+			model = billService.retrieveMsgs(uid);
 
-			msg = new com.openthinks.ae.rest.Message(
-					com.openthinks.ae.rest.Message.SUCCESS);
-
-			msg.setExtend(bills);
+			this.setSuccessfulResponseContent();
 
 			return new DefaultHttpHeaders("index").disableCaching();
 
 		} catch (Exception e) {
 			logger.debug(e);
 
-			msg = new com.openthinks.ae.rest.Message(
-					com.openthinks.ae.rest.Message.FAILURE);
+			this.setFailedResponseContent();
 
 			return INTERNAL_SERVER_ERROR;
 		}
@@ -99,18 +86,16 @@ public class BillController extends GenericRestfulController {
 					.getSession();
 			long accountId = (Long) session.get("id");
 
-			model = billService.create(model, accountId);
+			model = billService.create((Bill) model, accountId);
 
-			msg = new com.openthinks.ae.rest.Message(
-					com.openthinks.ae.rest.Message.SUCCESS);
+			this.setSuccessfulResponseContent();
 
-			return new DefaultHttpHeaders("success").setLocationId(model
-					.getId());
+			return new DefaultHttpHeaders("success")
+					.setLocationId(((Bill) model).getId());
 		} catch (Exception e) {
 			logger.debug(e);
 
-			msg = new com.openthinks.ae.rest.Message(
-					com.openthinks.ae.rest.Message.FAILURE);
+			this.setFailedResponseContent();
 
 			return ACCEPTED;
 		}

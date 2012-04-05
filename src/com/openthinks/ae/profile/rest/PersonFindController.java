@@ -5,7 +5,7 @@ import org.apache.struts2.convention.annotation.Results;
 
 import com.openthinks.ae.profile.service.SimplifiedPersonService;
 import com.openthinks.ae.rest.GenericRestfulQueryController;
-import com.openthinks.ae.rest.Message;
+import com.openthinks.ae.rest.ResponseContent;
 
 /**
  * Product finding controller
@@ -48,7 +48,7 @@ public class PersonFindController extends GenericRestfulQueryController {
 					sq.getPageSize(), sq.getPage());
 		} catch (Exception e) {
 			e.printStackTrace();
-			model = new Message(Message.FAILURE, e.getMessage());
+			model = new ResponseContent(ResponseContent.FAILURE, e.getMessage());
 		}
 
 		return "success";

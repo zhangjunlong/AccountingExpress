@@ -20,8 +20,6 @@ public class Initaccount extends GenericRestfulController {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private InitAccountData model = new InitAccountData();
-
 	@Override
 	public Object getModel() {
 		return model;

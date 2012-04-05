@@ -20,11 +20,31 @@ public abstract class GenericRestfulController extends ValidationAwareSupport
 		implements ModelDriven<Object>, Validateable, SessionAware {
 
 	/**
+	 * Default Serial Version UID
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * HTTP Header of code 202
 	 */
 	protected static HttpHeaders ACCEPTED;
 
 	protected static HttpHeaders INTERNAL_SERVER_ERROR;
+
+	protected Map<String, Object> session;
+
+	/**
+	 * Default response content
+	 */
+	protected ResponseContent responseContent;
+
+	/**
+	 * Model of request
+	 */
+	protected Object model;
+
+	// Flag of returning type
+	boolean returnResponseContent = false;
 
 	static {
 		ACCEPTED = new DefaultHttpHeaders();
@@ -35,15 +55,13 @@ public abstract class GenericRestfulController extends ValidationAwareSupport
 	}
 
 	/**
+	 * Type of model must be specified used the Constructor
 	 * 
+	 * @param model
 	 */
-	private static final long serialVersionUID = 1L;
-	protected Map<String, Object> session;
-
-	/**
-	 * Default response message
-	 */
-	protected Message message;
+	public GenericRestfulController(Object model) {
+		this.model = model;
+	}
 
 	public void setSession(Map<String, Object> session) {
 		this.session = session;
@@ -99,5 +117,54 @@ public abstract class GenericRestfulController extends ValidationAwareSupport
 	 * @return
 	 */
 	abstract public String destroy();
+
+	@Override
+	public Object getModel() {
+		if (returnResponseContent)
+			return responseContent;
+		else
+			return model;
+	}
+
+	/**
+	 * Set a successful response content with data in model
+	 */
+	protected void setSuccessfulResponseContent() {
+		this.returnResponseContent = true;
+		responseContent = new ResponseContent(ResponseContent.SUCCESS);
+
+		responseContent.setData(model);
+	}
+
+	/**
+	 * Set a successful response content with data in model
+	 * 
+	 * @param description
+	 */
+	protected void setSuccessfulResponseContent(String description) {
+		this.returnResponseContent = true;
+		responseContent = new ResponseContent(ResponseContent.SUCCESS);
+
+		responseContent.setData(model);
+	}
+
+	/**
+	 * Set a failed response content
+	 * 
+	 * @param description
+	 */
+	protected void setFailedResponseContent(String description) {
+		this.returnResponseContent = true;
+		responseContent = new ResponseContent(ResponseContent.FAILURE);
+		responseContent.setDescription(description);
+	}
+
+	/**
+	 * Set a failed response content
+	 */
+	protected void setFailedResponseContent() {
+		this.returnResponseContent = true;
+		responseContent = new ResponseContent(ResponseContent.FAILURE);
+	}
 
 }

@@ -28,7 +28,7 @@ public abstract class GenericRestfulQueryController extends
 	/**
 	 * Default response message
 	 */
-	protected Message message;
+	protected ResponseContent responseContent;
 
 	public void setSession(Map<String, Object> session) {
 		this.session = session;

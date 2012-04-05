@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.openthinks.ae.profile.Tenant;
 import com.openthinks.ae.profile.service.TenantService;
 import com.openthinks.ae.rest.GenericRestfulController;
-import com.openthinks.ae.rest.Message;
+import com.openthinks.ae.rest.ResponseContent;
 
 @Results({ @Result(name = "success", type = "redirectAction", params = {
 		"actionName", "tenant" }) })
@@ -27,8 +27,6 @@ public class TenantController extends GenericRestfulController {
 
 	private String id;
 
-	private Tenant model = new Tenant();
-
 	private Collection<Tenant> list;
 
 	public HttpHeaders create() {
@@ -40,7 +38,7 @@ public class TenantController extends GenericRestfulController {
 			e.printStackTrace();
 			addFieldError("clientName", "The client name is empty");
 
-			message = new Message(Message.FAILURE, e.getMessage());
+			responseContent = new ResponseContent(ResponseContent.FAILURE, e.getMessage());
 		}
 
 		return new DefaultHttpHeaders("success").setLocation(String
@@ -95,8 +93,8 @@ public class TenantController extends GenericRestfulController {
 
 	@Override
 	public Object getModel() {
-		if (message != null)
-			return message;
+		if (responseContent != null)
+			return responseContent;
 		else
 			return (list != null ? list : model);
 	}

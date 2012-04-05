@@ -25,8 +25,12 @@ public class Bill {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
+	private String serial;
+
 	@Column(length = 50)
 	private String client;
+
+	private String commodity;
 
 	private double amount;
 
@@ -106,6 +110,14 @@ public class Bill {
 
 	public void setPaymentPattern(String paymentPattern) {
 		this.paymentPattern = paymentPattern;
+	}
+
+	public String getCommodity() {
+		return commodity;
+	}
+
+	public void setCommodity(String commodity) {
+		this.commodity = commodity;
 	}
 
 }

@@ -1,6 +1,6 @@
 package com.openthinks.ae.rest;
 
-public class Message {
+public class ResponseContent {
 
 	public static final String SUCCESS = "success";
 	public static final String FAILURE = "failure";
@@ -9,18 +9,18 @@ public class Message {
 	private String status;
 	private String description;
 	// Extend message object to be return;
-	private Object extend;
+	private Object data;
 
-	public Message() {
+	public ResponseContent() {
 		super();
 	}
 
-	public Message(String status) {
+	public ResponseContent(String status) {
 		super();
 		this.status = status;
 	}
 
-	public Message(String status, String description) {
+	public ResponseContent(String status, String description) {
 		super();
 		this.status = status;
 		this.description = description;
@@ -42,12 +42,12 @@ public class Message {
 		this.description = description;
 	}
 
-	public Object getExtend() {
-		return extend;
+	public Object getData() {
+		return data;
 	}
 
-	public void setExtend(Object extend) {
-		this.extend = extend;
+	public void setData(Object extend) {
+		this.data = extend;
 	}
 
 }

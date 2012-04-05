@@ -15,11 +15,12 @@ import com.openthinks.ae.rest.GenericRestfulController;
 		"actionName", "account" }) })
 public class AccountController extends GenericRestfulController {
 
+	public AccountController() {
+		super(new Account());
+		// TODO Auto-generated constructor stub
+	}
+
 	private static final long serialVersionUID = 1L;
-
-	private int id;
-
-	private Account model = new Account();
 
 	private Collection<Account> list;
 
@@ -35,7 +36,7 @@ public class AccountController extends GenericRestfulController {
 	public HttpHeaders show() {
 
 		try {
-			model = accountService.find(model.getId());
+			model = accountService.find(((Account) model).getId());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -57,18 +58,19 @@ public class AccountController extends GenericRestfulController {
 	@Override
 	public HttpHeaders create() {
 		try {
-			accountService.create(model);
+			accountService.create((Account) model);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		return new DefaultHttpHeaders("success").setLocationId(model.getId());
+		return new DefaultHttpHeaders("success")
+				.setLocationId(((Account) model).getId());
 	}
 
 	@Override
 	public String update() {
 		try {
-			accountService.update(model);
+			accountService.update((Account) model);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -79,7 +81,7 @@ public class AccountController extends GenericRestfulController {
 	@Override
 	public String destroy() {
 		try {
-			accountService.delete(model.getId());
+			accountService.delete(((Account) model).getId());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -89,8 +91,8 @@ public class AccountController extends GenericRestfulController {
 
 	@Override
 	public Object getModel() {
-		if (message != null)
-			return message;
+		if (responseContent != null)
+			return responseContent;
 		else
 			return (list != null ? list : model);
 	}
@@ -99,7 +101,4 @@ public class AccountController extends GenericRestfulController {
 		this.accountService = accountGroupService;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
 }

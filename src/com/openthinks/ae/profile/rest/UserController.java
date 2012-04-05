@@ -27,8 +27,6 @@ public class UserController extends GenericRestfulController {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private User model = new User();
-
 	private Collection<User> list;
 
 	@Autowired
@@ -99,8 +97,8 @@ public class UserController extends GenericRestfulController {
 
 	@Override
 	public Object getModel() {
-		if (message != null)
-			return message;
+		if (responseContent != null)
+			return responseContent;
 		else
 			return (list != null ? list : model);
 	}
