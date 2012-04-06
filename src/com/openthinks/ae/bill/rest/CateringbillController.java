@@ -1,5 +1,6 @@
 package com.openthinks.ae.bill.rest;
 
+import java.util.Collection;
 import java.util.Map;
 
 import org.apache.struts2.convention.annotation.Result;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.openthinks.ae.account.service.AccountService;
+import com.openthinks.ae.bill.Bill;
 import com.openthinks.ae.bill.CateringBill;
 import com.openthinks.ae.bill.service.BillService;
 import com.openthinks.ae.rest.GenericRestfulController;
@@ -21,6 +23,7 @@ public class CateringbillController extends GenericRestfulController {
 
 	public CateringbillController() {
 		super(new CateringBill());
+		this.model = (CateringBill) super.getModel();
 	}
 
 	/**
@@ -30,6 +33,8 @@ public class CateringbillController extends GenericRestfulController {
 
 	private static final Logger logger = Logger
 			.getLogger(CateringbillController.class);
+
+	private CateringBill model;
 
 	@Autowired
 	private AccountService accountService;
@@ -56,9 +61,9 @@ public class CateringbillController extends GenericRestfulController {
 					.getSession();
 			long uid = (Long) session.get("id");
 
-			model = billService.retrieveMsgs(uid);
+			Collection<Bill> bills = billService.find(uid);
 
-			this.setSuccessfulResponseContent();
+			this.setlResponseContent(bills);
 
 			return new DefaultHttpHeaders("index").disableCaching();
 
@@ -73,8 +78,17 @@ public class CateringbillController extends GenericRestfulController {
 
 	@Override
 	public HttpHeaders create() {
-		// TODO Auto-generated method stub
-		return null;
+		long uid = (Long) session.get("id");
+		try {
+			billService.create(model, uid);
+
+			return new DefaultHttpHeaders("success").setLocationId(model
+					.getId());
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return ACCEPTED;
+		}
 	}
 
 	@Override

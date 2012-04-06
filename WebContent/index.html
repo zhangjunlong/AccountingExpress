@@ -36,7 +36,7 @@
 								$("#sign").fadeOut("slow");
 								
 								if (data.description == 'client')
-									window.location = 'pages/home.html?userId='+data.extend.id+'&userName='+data.extend.userId;
+									window.location = 'pages/home.html?userId='+data.data.id+'&userName='+data.data.userId;
 								else
 									window.location = 'console/';
 							} else {

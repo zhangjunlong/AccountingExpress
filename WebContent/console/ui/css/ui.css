@@ -243,7 +243,7 @@ label.error{width:100%;}
 #subtitle{float:right;width:auto}
 
 /* Layout Style */
-#top {padding:3px;text-align:right;font:14px arial,sans-serif;*font-size:medium;*font:medium;font-weight:bold}
+#top {padding:3px;text-align:right;font:14px arial,sans-serif;*font-size:medium;*font:medium;font-weight:bold;border-radius: 3px 3px 0px 0px;}
 #top a:link {text-decoration:none;color:black}
 #top a:visited {text-decoration:none;color:black}
 #top a:hover {color: blue;text-decoration:none}

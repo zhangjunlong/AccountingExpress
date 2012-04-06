@@ -8,7 +8,6 @@
 	<script type="text/javascript" src="../generic/js/jquery.pagination.js"></script>
 	<script type="text/javascript" src="../generic/js/HashMap.js"></script>
 	<script type="text/javascript" src="../generic/ui/js/si.ui.js"></script>
-	<script type="text/javascript" src="js/order.js"></script>
 	<script type="text/javascript" src="js/utils.js"></script>
 	<title>主页</title>
 	<script type="text/javascript">
@@ -16,47 +15,33 @@
 	        utils.userId = utils.getParameter("userId");
 	        utils.userName = utils.getParameter("userName");
 		    
-		    $.get('../person/'+utils.userId+'.json',function (data){
+		    $.get('../user/'+utils.userId+'.json',function (data){
 			    $('title').prepend(data.name+"的");
 		    	$('#name').html(data.name);
-		    	
-		    	list();
 		    });
 		    
 			$("#msgs").fadeIn("slow");
 			$("#footer").slideDown("1000");
 		});
 		
-		var list = function () {
-			si.ui.showLoading('msgs');
-			$('#msgs .rimmed').remove();
-			$.get('../message.json',function(data){
-				$.each(data.extend,function(index,msg) {
-					$('#msgs').append('<div id=msg'+msg.id+' class="rimmed">'+msg.content+'<div class="light inlineBlock">  --'+msg.sender.userId+'</div></div>');
-				});
-				
-				si.ui.closeLoading('msgs');
-			});
-		}
-		
-		var post = function() {
-			var msg = $('#newMsg').val();
-			if(''==msg) {
-				$('#newMsg').focus();
-				return;	
-			}
-			
-			$.post('../message.json','content='+msg+'&receiver.id='+utils.userId,function(data){
-				list();
-			});
-		}
 	</script>
 </head>
 <body>
-<div id="top" class="blueBar"><a href="register.html">我的主页</a> | <a href="../sign/0/out">登出</a></div>
+<div id="top" class="blueBar"><div class="floatLeft"><a>AccEx&trade;</a></div> | <a href="../sign/0/out">登出</a></div>
 <div id="main" class="center">
-	<div id="content" class="rimmed floatLeft" style="width:50%">
-		<div class="metal left">
+	<div id="content" class="rimmed floatLeft" style="width:67%">
+		<h1>我的应用</h1>
+		<p>
+			<span id="err" class="err"></span><br/>
+		</p>
+		<div id="apps">
+			<div class="rimmed inlineBlock">
+				<a href="bill/catering.html">餐饮账单</a>
+			</div>
+		</div>
+	</div>
+	<div id="sidebar" class="rimmed floatRight" style="width:30%">
+		<div class="metal left inlineBlock">
 			<img class="inlineBlock middle" src="../generic/images/na_male.gif"/>
 			<div class="imageBlockContent inlineBlock" style="height:48px">
 				<input type="hidden" id="accountId"/>
@@ -64,19 +49,7 @@
 				<h3>“<em id="status"> 个性签名 </em>”</h3>
 			</div>
 		</div>
-		<p>
-			<span id="err" class="err"></span><br/>
-		</p>
-		<div id="myMsg">
-			<textarea id="newMsg" title="留下点什么... ..." style="width:50%;height:48px;" onclick="si.ui.clear(this);" placeholder="留下点什么... ...">留下点什么... ...</textarea>
-			<button type="button" value="发布" onclick="post();">发布</button>
-		</div>
-		<div id="msgs" class="rimmed hidden">
-			<h3>留言墙：</h3>
-		</div>
-	</div>
-	<div id="sidebar" class="rimmed floatRight">
-		<h2 class="dark">班级成员</h2>
+		<h2 class="dark">登录日志</h2>
 	</div>
 </div>
 <div id="footer" class="hidden">&nbsp;&nbsp;&copy; Smart Interactive&trade; System Technology</div>

@@ -15,16 +15,18 @@ import com.openthinks.ae.rest.GenericRestfulController;
 		"actionName", "account" }) })
 public class AccountController extends GenericRestfulController {
 
-	public AccountController() {
-		super(new Account());
-		// TODO Auto-generated constructor stub
-	}
-
 	private static final long serialVersionUID = 1L;
+
+	private Account model;
 
 	private Collection<Account> list;
 
 	private AccountService accountService;
+
+	public AccountController() {
+		super(new Account());
+		model = (Account) this.getModel();
+	}
 
 	@Override
 	public void validate() {
@@ -36,7 +38,7 @@ public class AccountController extends GenericRestfulController {
 	public HttpHeaders show() {
 
 		try {
-			model = accountService.find(((Account) model).getId());
+			model = accountService.find(model.getId());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -48,8 +50,12 @@ public class AccountController extends GenericRestfulController {
 	public HttpHeaders index() {
 		try {
 			list = accountService.find();
+
+			this.setlResponseContent(list);
 		} catch (Exception e) {
 			e.printStackTrace();
+
+			this.setFailedResponseContent();
 		}
 
 		return new DefaultHttpHeaders("index").disableCaching();
@@ -58,21 +64,28 @@ public class AccountController extends GenericRestfulController {
 	@Override
 	public HttpHeaders create() {
 		try {
-			accountService.create((Account) model);
+			accountService.create(model);
+
+			this.setSuccessfulResponseContent();
 		} catch (Exception e) {
 			e.printStackTrace();
+
+			this.setFailedResponseContent();
 		}
 
-		return new DefaultHttpHeaders("success")
-				.setLocationId(((Account) model).getId());
+		return new DefaultHttpHeaders("success").setLocationId(model.getId());
 	}
 
 	@Override
 	public String update() {
 		try {
-			accountService.update((Account) model);
+			accountService.update(model);
+
+			this.setSuccessfulResponseContent();
 		} catch (Exception e) {
 			e.printStackTrace();
+
+			this.setFailedResponseContent();
 		}
 
 		return "success";
@@ -81,20 +94,16 @@ public class AccountController extends GenericRestfulController {
 	@Override
 	public String destroy() {
 		try {
-			accountService.delete(((Account) model).getId());
+			accountService.delete(model.getId());
+
+			this.setSuccessfulResponseContent();
 		} catch (Exception e) {
 			e.printStackTrace();
+
+			this.setFailedResponseContent();
 		}
 
 		return "success";
-	}
-
-	@Override
-	public Object getModel() {
-		if (responseContent != null)
-			return responseContent;
-		else
-			return (list != null ? list : model);
 	}
 
 	public void setAccountService(AccountService accountGroupService) {

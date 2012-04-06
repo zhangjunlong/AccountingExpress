@@ -1,6 +1,7 @@
 package com.openthinks.ae.bill;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 
 /**
  * Bill of Catering
@@ -8,6 +9,7 @@ import javax.persistence.Column;
  * @author Zhang Junlong
  * 
  */
+@Entity
 public class CateringBill extends Bill {
 
 	@Column(length = 20)

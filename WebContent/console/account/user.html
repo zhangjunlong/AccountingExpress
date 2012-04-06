@@ -23,7 +23,6 @@
 
 			$('#data').empty();
 			$.getJSON("../../user.json", function(data) {
-				var items = [];
 
 				$.each(data, function(index, obj) {
 					$('#data').append('<tr id="' + obj.id + '" onclick="update(this);"></tr>');
@@ -48,7 +47,7 @@
 					if(null != data.accountGroup)
 						$('#group').val(data.accountGroup.id);
 				
-					$('#daoForm').attr('action','../../person/'+data.id+'.json');
+					$('#daoForm').attr('action','../../user/'+data.id+'.json');
 				}
 			};
 			

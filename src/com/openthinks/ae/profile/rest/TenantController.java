@@ -27,18 +27,27 @@ public class TenantController extends GenericRestfulController {
 
 	private String id;
 
+	private Tenant model;
+
 	private Collection<Tenant> list;
+
+	public TenantController() {
+		super(new Tenant());
+		model = (Tenant) super.getModel();
+	}
 
 	public HttpHeaders create() {
 		try {
 			tenantService.create(model);
 
 			addActionMessage("New brand created successfully");
+
+			this.setSuccessfulResponseContent();
 		} catch (Exception e) {
 			e.printStackTrace();
 			addFieldError("clientName", "The client name is empty");
 
-			responseContent = new ResponseContent(ResponseContent.FAILURE, e.getMessage());
+			this.setFailedResponseContent();
 		}
 
 		return new DefaultHttpHeaders("success").setLocation(String
@@ -48,8 +57,12 @@ public class TenantController extends GenericRestfulController {
 	public HttpHeaders show() {
 		try {
 			model = tenantService.find(Integer.parseInt(id), false);
+
+			setSuccessfulResponseContent();
 		} catch (Exception e) {
 			e.printStackTrace();
+
+			this.setFailedResponseContent();
 		}
 
 		return new DefaultHttpHeaders("show");
@@ -59,8 +72,12 @@ public class TenantController extends GenericRestfulController {
 	public HttpHeaders index() {
 		try {
 			list = tenantService.find(true);
+
+			this.setlResponseContent(list);
 		} catch (Exception e) {
 			e.printStackTrace();
+
+			this.setFailedResponseContent();
 		}
 
 		return new DefaultHttpHeaders("index").disableCaching();
@@ -73,8 +90,12 @@ public class TenantController extends GenericRestfulController {
 			tenantService.update(model);
 
 			addActionMessage("Order updated successfully");
+
+			this.setSuccessfulResponseContent();
 		} catch (Exception e) {
 			e.printStackTrace();
+
+			this.setFailedResponseContent();
 		}
 
 		return "success";
@@ -84,8 +105,12 @@ public class TenantController extends GenericRestfulController {
 	public String destroy() {
 		try {
 			tenantService.delete(Integer.parseInt(id));
+
+			this.setSuccessfulResponseContent();
 		} catch (Exception e) {
 			e.printStackTrace();
+
+			this.setFailedResponseContent();
 		}
 
 		return null;

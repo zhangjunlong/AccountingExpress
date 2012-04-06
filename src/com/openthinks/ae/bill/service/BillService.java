@@ -14,7 +14,7 @@ public interface BillService {
 	 * @param uid
 	 * @return
 	 */
-	Collection<Bill> retrieveMsgs(long uid) throws Exception;
+	Collection<Bill> find(long uid) throws Exception;
 
 	void delete(long msgId) throws Exception;
 

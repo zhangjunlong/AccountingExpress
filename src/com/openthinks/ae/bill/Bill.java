@@ -37,7 +37,7 @@ public class Bill {
 	@Column(length = 10)
 	private String paymentPattern;
 
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	private Date date;
 
 	private String remark;
@@ -118,6 +118,14 @@ public class Bill {
 
 	public void setCommodity(String commodity) {
 		this.commodity = commodity;
+	}
+
+	public String getSerial() {
+		return serial;
+	}
+
+	public void setSerial(String serial) {
+		this.serial = serial;
 	}
 
 }

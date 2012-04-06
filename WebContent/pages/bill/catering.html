@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link href="../../generic/css/basic.css" rel="stylesheet" type="text/css" />
+	<link href="../../generic/ui/css/ui.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="../../generic/js/jquery.js"></script>
+	<script type="text/javascript" src="../../generic/js/jquery.form.js"></script>
+	<script type="text/javascript" src="../../generic/js/jquery.validate.js"></script>
+	<script type="text/javascript" src="../../generic/ui/js/si.ui.js"></script>
+	<script type="text/javascript" src="../../generic/js/si.common.js"></script>
+	<title>餐饮账单</title>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			initSelectOptions();
+			showAll();
+
+			bindAjaxFormValidation();
+		});
+
+		function showAll() {
+			si.ui.showLoading();
+
+			$('#data').empty();
+			$.getJSON("../../cateringbill.json", function(data) {
+
+				$.each(data, function(index, obj) {
+					$('#data').append('<tr id="' + obj.id + '></tr>');
+					$('#'+obj.id).append('<td>' + obj.serial + '</td>');
+					$('#'+obj.id).append('<td>' + obj.client + '</td>');
+					$('#'+obj.id).append('<td>' + obj.commodity + '</td>');
+					$('#'+obj.id).append('<td>' + obj.numberOfGuests + '</td>');
+					$('#'+obj.id).append('<td>' + obj.standard + '</td>');
+					$('#'+obj.id).append('<td>' + obj.amount + '</td>');
+					$('#'+obj.id).append('<td>' + obj.payPattern + '</td>');
+					$('#'+obj.id).append('<td>' + obj.referee + '</td>');
+					$('#'+obj.id).append('<td>' + obj.data + '</td>');
+					$('#'+obj.id).append('<td>' + obj.referSerial + '</td>');
+					$('#'+obj.id).append('<td>' + obj.remark + '</td>');
+					$('#'+obj.id).append('<td><a onclick="update(this);>编辑</td>');
+				});
+				
+				si.ui.closeLoading();
+			});
+		}
+
+		function update(obj) {
+			var option = {
+				url:'../../user/'+obj.id+'.json',
+				callback: function(data){
+					$('#id').val(data.id);
+					$('#userId').val(data.userId);
+					$('#name').val(data.name);
+					$('#pwd').val(data.password);
+					$('#desc').val(data.description);
+					$('#role').val(data.role);
+					if(null != data.accountGroup)
+						$('#group').val(data.accountGroup.id);
+				
+					$('#daoForm').attr('action','../../user/'+data.id+'.json');
+				}
+			};
+			
+			si.ui.dao.update(option);
+		}
+
+		function initSelectOptions() {
+			// Init brands
+			$.getJSON('../../tenant.json', function(data) {
+				var items = [];
+				items.push('<option></option>');
+				$.each(data, function(index, group) {
+					items.push('<option value="'+group.id+'">' + group.name + '</option>');
+					$('#group').html(items.join(''));
+				});
+			});
+		}
+		
+		function del() {
+			var delOption = {
+				url : '../../user/'+$('#id').val()+'.json'
+			};
+			
+			si.ui.dao.del(delOption);
+		}
+	</script>
+</head>
+<body>
+<div id="top" class="blueBar"><div class="floatLeft">AccEx&trade; <a href="../home.html">主页</a></div><a href="../../sign/0/out">登出</a></div>
+<div id="main" class="rimmed">
+		<h2 class="dark">账单</h2>
+		<div id="dataList" class="rimmed floatLeft">
+			<div class="toolbar">
+				<button onclick="$('#colorSize').empty();si.ui.dao.create();">新建+</button>
+			</div>
+			<div class="querybar">
+				<input id="qstyleNo" onkeypress="if(event.keyCode==13) {$('#searchbtn').click();}" />
+				<button id="searchbtn" onclick="showProduct();">查找</button>
+			</div>
+			<table class="data">
+				<thead>
+					<tr>
+						<th>编号</th>
+						<th>客户</th>
+						<th>商品/服务</th>
+						<th>人数</th>
+						<th>服务标准</th>
+						<th>金额</th>
+						<th>付款方式</th>
+						<th>负责人</th>
+						<th>日期</th>
+						<th>挂账编号</th>
+						<th>备注</th>
+						<th></th>
+					</tr>
+				</thead>
+				
+				<form id="daoForm" action="../../cateringbill.json" method="post">
+				<tbody id="operation" class="hidden">
+					<tr>
+							<td><input name="serial" type="text" size="10"/></td>
+							<td><input name="client" type="text" size="20"/></td>
+							<td><input name="commodity" type="text" size="20"/></td>
+							<td><input name="numberOfGuests" type="text" size="2"/></td>
+							<td><input name="standard" type="text" size="6"/></td>
+							<td><input name="amount" type="text" size="2"/></td>
+							<td>
+								<select name="payPattern">
+									<option value="0">签单</option>
+									<option value="1">现金</option>
+								</select>
+							</td>
+							<td><input name="referee" type="text" size="2"/></td>
+							<td><input name="date" type="text" size="8"/></td>
+							<td><input name="referSerial" type="text" size="10"/></td>
+							<td><input name="remark" type="text" size="20"/></td>
+							<td width="100px">
+								<button type="submit" value="保存">保存</button>
+								<button type="reset" value="放弃" onclick="si.ui.dao.cancel();">放弃</button>
+							</td>
+						</tr>
+				</tbody>
+				</form>
+				<tbody id="data">
+						
+				
+				</tbody>
+				<tfoot>
+					<tr>
+						<td id="pageBar" colspan="3"></td>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

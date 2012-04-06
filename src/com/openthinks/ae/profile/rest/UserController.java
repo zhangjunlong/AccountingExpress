@@ -29,8 +29,15 @@ public class UserController extends GenericRestfulController {
 
 	private Collection<User> list;
 
+	private User model;
+
 	@Autowired
 	private UserService userService;
+
+	public UserController() {
+		super(new User());
+		model = (User) super.getModel();
+	}
 
 	@Override
 	public void validate() {
@@ -41,8 +48,12 @@ public class UserController extends GenericRestfulController {
 	public HttpHeaders show() {
 		try {
 			model = userService.find(model.getId());
+
+			this.setlResponseContent(model);
 		} catch (Exception e) {
 			e.printStackTrace();
+
+			this.setFailedResponseContent();
 		}
 
 		return new DefaultHttpHeaders("show");
@@ -52,8 +63,12 @@ public class UserController extends GenericRestfulController {
 
 		try {
 			list = userService.find();
+
+			this.setlResponseContent(list);
 		} catch (Exception e) {
 			e.printStackTrace();
+
+			this.setFailedResponseContent();
 		}
 
 		return new DefaultHttpHeaders("index").disableCaching();
@@ -64,9 +79,12 @@ public class UserController extends GenericRestfulController {
 		try {
 			userService.create(model);
 
+			this.setlResponseContent(model);
+
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+
+			this.setFailedResponseContent();
 		}
 
 		return new DefaultHttpHeaders("success").setLocationId(model.getId());
@@ -76,8 +94,12 @@ public class UserController extends GenericRestfulController {
 	public String update() {
 		try {
 			userService.update(model);
+
+			this.setlResponseContent(model);
 		} catch (Exception e) {
 			e.printStackTrace();
+
+			this.setFailedResponseContent();
 		}
 
 		return "success";
@@ -88,19 +110,15 @@ public class UserController extends GenericRestfulController {
 
 		try {
 			userService.delete(model.getId());
+
+			this.setSuccessfulResponseContent();
 		} catch (Exception e) {
 			e.printStackTrace();
+
+			this.setFailedResponseContent(e.getMessage());
 		}
 
 		return "success";
-	}
-
-	@Override
-	public Object getModel() {
-		if (responseContent != null)
-			return responseContent;
-		else
-			return (list != null ? list : model);
 	}
 
 }

@@ -19,10 +19,6 @@ import common.Logger;
 		"actionName", "bill" }) })
 public class BillController extends GenericRestfulController {
 
-	public BillController() {
-		super(new Bill());
-	}
-
 	/**
 	 * 
 	 */
@@ -30,11 +26,18 @@ public class BillController extends GenericRestfulController {
 
 	private static final Logger logger = Logger.getLogger(BillController.class);
 
+	Bill model;
+
 	Collection<Bill> bills;
 
 	BillService billService;
 
 	AccountService accountService;
+
+	public BillController() {
+		super(new Bill());
+		this.model = (Bill) super.getModel();
+	}
 
 	public void setBillService(BillService billService) {
 		this.billService = billService;
@@ -63,7 +66,7 @@ public class BillController extends GenericRestfulController {
 					.getSession();
 			long uid = (Long) session.get("id");
 
-			model = billService.retrieveMsgs(uid);
+			bills = billService.find(uid);
 
 			this.setSuccessfulResponseContent();
 

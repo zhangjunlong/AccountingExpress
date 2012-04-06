@@ -14,7 +14,7 @@ public class BillServiceImpl implements BillService {
 
 	AccountDao accountDao;
 
-	public void setMessageDao(BillDao billDao) {
+	public void setBillDao(BillDao billDao) {
 		this.billDao = billDao;
 	}
 
@@ -34,7 +34,7 @@ public class BillServiceImpl implements BillService {
 	}
 
 	@Override
-	public Collection<Bill> retrieveMsgs(long uid) throws Exception {
+	public Collection<Bill> find(long uid) throws Exception {
 
 		return billDao.find(uid);
 

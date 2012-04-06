@@ -11,10 +11,12 @@ import com.opensymphony.xwork2.Validateable;
 import com.opensymphony.xwork2.ValidationAwareSupport;
 
 /**
- * Generic controller
+ * Generic Restful Controller
  * 
  * @author Zhang Junlong
  * 
+ * @param <T>
+ *            Request Object Type
  */
 public abstract class GenericRestfulController extends ValidationAwareSupport
 		implements ModelDriven<Object>, Validateable, SessionAware {
@@ -41,7 +43,7 @@ public abstract class GenericRestfulController extends ValidationAwareSupport
 	/**
 	 * Model of request
 	 */
-	protected Object model;
+	private Object model;
 
 	// Flag of returning type
 	boolean returnResponseContent = false;
@@ -54,11 +56,6 @@ public abstract class GenericRestfulController extends ValidationAwareSupport
 		INTERNAL_SERVER_ERROR.setStatus(500);
 	}
 
-	/**
-	 * Type of model must be specified used the Constructor
-	 * 
-	 * @param model
-	 */
 	public GenericRestfulController(Object model) {
 		this.model = model;
 	}
@@ -127,6 +124,15 @@ public abstract class GenericRestfulController extends ValidationAwareSupport
 	}
 
 	/**
+	 * Set an instance for model
+	 * 
+	 * @param model
+	 */
+	public void setModel(Object model) {
+		this.model = model;
+	}
+
+	/**
 	 * Set a successful response content with data in model
 	 */
 	protected void setSuccessfulResponseContent() {
@@ -139,13 +145,12 @@ public abstract class GenericRestfulController extends ValidationAwareSupport
 	/**
 	 * Set a successful response content with data in model
 	 * 
-	 * @param description
+	 * @param data
 	 */
-	protected void setSuccessfulResponseContent(String description) {
-		this.returnResponseContent = true;
-		responseContent = new ResponseContent(ResponseContent.SUCCESS);
+	protected void setlResponseContent(Object data) {
+		this.returnResponseContent = false;
 
-		responseContent.setData(model);
+		setModel(data);
 	}
 
 	/**

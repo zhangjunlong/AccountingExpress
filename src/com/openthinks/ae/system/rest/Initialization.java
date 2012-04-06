@@ -14,16 +14,19 @@ import com.openthinks.ae.system.configuration.PropertiesReader;
 
 @Results({ @Result(name = "success", type = "redirectAction", params = {
 		"actionName", "initaccount" }) })
-public class Initaccount extends GenericRestfulController {
+public class Initialization extends GenericRestfulController {
+
+	public Initialization() {
+		super(new Account());
+
+	}
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Override
-	public Object getModel() {
-		return model;
-	}
+
+	Account model = new Account();
 
 	@Override
 	public void validate() {
@@ -53,7 +56,7 @@ public class Initaccount extends GenericRestfulController {
 		} catch (InvocationTargetException e) {
 			e.printStackTrace();
 		}
-		return new DefaultHttpHeaders("success").setLocationId(model.getId());
+		return new DefaultHttpHeaders("success").setLocationId(0);
 	}
 
 	@Override

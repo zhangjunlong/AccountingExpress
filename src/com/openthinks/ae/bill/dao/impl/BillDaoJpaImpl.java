@@ -21,7 +21,7 @@ public class BillDaoJpaImpl extends GenericJpaDaoBean<Bill, Long>
 
 	@Override
 	public Collection<Bill> find(long uid) throws Exception {
-		String ql = "SELECT m FROM Message m WHERE m.receiver.id = ?0";
+		String ql = "SELECT b FROM Bill b WHERE b.operator.id = ?0";
 
 		return this.query(ql, uid);
 	}
