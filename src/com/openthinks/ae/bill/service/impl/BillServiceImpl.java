@@ -46,4 +46,12 @@ public class BillServiceImpl implements BillService {
 		billDao.delete(msg);
 	}
 
+	@Override
+	public void update(Bill bill, long operatorId) throws Exception {
+		bill.setOperator(accountDao.read(operatorId));
+		bill.setTimestamp(new Date());
+		
+		billDao.update(bill);
+	}
+
 }

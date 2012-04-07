@@ -54,11 +54,12 @@ label {display: inline-block;vertical-align:middle;text-align:right;width:65px}
 
 .left{text-align:left}
 .right{text-align:right}
-.center{text-align:center}
+.centered{text-align:center}
 .middle {vertical-align: middle;}
 
 .floatLeft{float:left}
 .floatRight{float:right}
+.floatCenter{float:center}
 
 .block{display:block;}
 .imageBlockContent{overflow: hidden;}
@@ -270,7 +271,7 @@ label.error{width:100%;}
 	margin: 1px 2px 1px 2px;
 	border: 0px;
 	float: left;
-	width: 100%;
+	width: 99%;
 	height: auto;
 	overflow: auto;
 	text-align: center;

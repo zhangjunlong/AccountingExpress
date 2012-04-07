@@ -16,6 +16,7 @@
 			showAll();
 
 			bindAjaxFormValidation();
+			$("#footer").slideDown("slow");
 		});
 
 		function showAll() {
@@ -25,19 +26,19 @@
 			$.getJSON("../../cateringbill.json", function(data) {
 
 				$.each(data, function(index, obj) {
-					$('#data').append('<tr id="' + obj.id + '></tr>');
+					$('#data').append('<tr id="' + obj.id + '"></tr>');
 					$('#'+obj.id).append('<td>' + obj.serial + '</td>');
 					$('#'+obj.id).append('<td>' + obj.client + '</td>');
 					$('#'+obj.id).append('<td>' + obj.commodity + '</td>');
 					$('#'+obj.id).append('<td>' + obj.numberOfGuests + '</td>');
 					$('#'+obj.id).append('<td>' + obj.standard + '</td>');
 					$('#'+obj.id).append('<td>' + obj.amount + '</td>');
-					$('#'+obj.id).append('<td>' + obj.payPattern + '</td>');
+					$('#'+obj.id).append('<td>' + obj.paymentPattern + '</td>');
 					$('#'+obj.id).append('<td>' + obj.referee + '</td>');
-					$('#'+obj.id).append('<td>' + obj.data + '</td>');
+					$('#'+obj.id).append('<td>' + obj.date + '</td>');
 					$('#'+obj.id).append('<td>' + obj.referSerial + '</td>');
 					$('#'+obj.id).append('<td>' + obj.remark + '</td>');
-					$('#'+obj.id).append('<td><a onclick="update(this);>编辑</td>');
+					$('#'+obj.id).append('<td><button onclick="update(this);">编辑</button><button onclick="del(this);">删除</button></td>');
 				});
 				
 				si.ui.closeLoading();
@@ -88,70 +89,71 @@
 <body>
 <div id="top" class="blueBar"><div class="floatLeft">AccEx&trade; <a href="../home.html">主页</a></div><a href="../../sign/0/out">登出</a></div>
 <div id="main" class="rimmed">
-		<h2 class="dark">账单</h2>
-		<div id="dataList" class="rimmed floatLeft">
-			<div class="toolbar">
-				<button onclick="$('#colorSize').empty();si.ui.dao.create();">新建+</button>
-			</div>
-			<div class="querybar">
-				<input id="qstyleNo" onkeypress="if(event.keyCode==13) {$('#searchbtn').click();}" />
-				<button id="searchbtn" onclick="showProduct();">查找</button>
-			</div>
-			<table class="data">
-				<thead>
-					<tr>
-						<th>编号</th>
-						<th>客户</th>
-						<th>商品/服务</th>
-						<th>人数</th>
-						<th>服务标准</th>
-						<th>金额</th>
-						<th>付款方式</th>
-						<th>负责人</th>
-						<th>日期</th>
-						<th>挂账编号</th>
-						<th>备注</th>
-						<th></th>
-					</tr>
-				</thead>
-				
-				<form id="daoForm" action="../../cateringbill.json" method="post">
-				<tbody id="operation" class="hidden">
-					<tr>
-							<td><input name="serial" type="text" size="10"/></td>
-							<td><input name="client" type="text" size="20"/></td>
-							<td><input name="commodity" type="text" size="20"/></td>
-							<td><input name="numberOfGuests" type="text" size="2"/></td>
-							<td><input name="standard" type="text" size="6"/></td>
-							<td><input name="amount" type="text" size="2"/></td>
-							<td>
-								<select name="payPattern">
-									<option value="0">签单</option>
-									<option value="1">现金</option>
-								</select>
-							</td>
-							<td><input name="referee" type="text" size="2"/></td>
-							<td><input name="date" type="text" size="8"/></td>
-							<td><input name="referSerial" type="text" size="10"/></td>
-							<td><input name="remark" type="text" size="20"/></td>
-							<td width="100px">
-								<button type="submit" value="保存">保存</button>
-								<button type="reset" value="放弃" onclick="si.ui.dao.cancel();">放弃</button>
-							</td>
-						</tr>
-				</tbody>
-				</form>
-				<tbody id="data">
-						
-				
-				</tbody>
-				<tfoot>
-					<tr>
-						<td id="pageBar" colspan="3"></td>
-					</tr>
-				</tfoot>
-			</table>
+	<h2 class="dark">账单</h2>
+	<div id="dataList" class="rimmed">
+		<div class="toolbar">
+			<button onclick="$('#colorSize').empty();si.ui.dao.create();">新建+</button>
 		</div>
+		<div class="querybar">
+			<input id="qstyleNo" onkeypress="if(event.keyCode==13) {$('#searchbtn').click();}" />
+			<button id="searchbtn" onclick="showProduct();">查找</button>
+		</div>
+		<table class="data">
+			<thead>
+				<tr>
+					<th width="10%">编号</th>
+					<th width="10%">客户</th>
+					<th width="10%">商品/服务</th>
+					<th width="5%">人数</th>
+					<th width="5%">服务标准</th>
+					<th width="5%">金额</th>
+					<th width="5%">付款方式</th>
+					<th width="5%">负责人</th>
+					<th width="10%">日期</th>
+					<th width="10%">挂账编号</th>
+					<th width="15%">备注</th>
+					<th width="10%">操作</th>
+				</tr>
+			</thead>
+			
+			<form id="daoForm" action="../../cateringbill.json" method="post">
+			<tbody id="operation" class="hidden">
+				<tr>
+						<td><input name="serial" type="text" size="8"/></td>
+						<td><input name="client" type="text" size="10"/></td>
+						<td><input name="commodity" type="text" size="10"/></td>
+						<td><input name="numberOfGuests" type="text" size="1" class="right"/></td>
+						<td><input name="standard" type="text" size="2"/></td>
+						<td><input name="amount" type="text" size="2" class="right"/></td>
+						<td>
+							<select name="paymentPattern">
+								<option value="0">签单</option>
+								<option value="1">现金</option>
+							</select>
+						</td>
+						<td><input name="referee" type="text" size="2"/></td>
+						<td><input name="date" type="text" size="5"/></td>
+						<td><input name="referSerial" type="text" size="8"/></td>
+						<td><input name="remark" type="text" size="15"/></td>
+						<td width="100px">
+							<button type="submit" value="保存">保存</button>
+							<button type="reset" value="放弃" onclick="si.ui.dao.cancel();">放弃</button>
+						</td>
+					</tr>
+			</tbody>
+			</form>
+			<tbody id="data">
+					
+			
+			</tbody>
+			<tfoot>
+				<tr>
+					<td id="pageBar" colspan="3"></td>
+				</tr>
+			</tfoot>
+		</table>
 	</div>
+</div>
+<div id="footer" class="hidden">&nbsp;&nbsp;&copy; Smart Interactive&trade; System Technology</div>
 </body>
 </html>

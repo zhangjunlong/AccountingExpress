@@ -73,7 +73,7 @@ public class TenantController extends GenericRestfulController {
 		try {
 			list = tenantService.find(true);
 
-			this.setlResponseContent(list);
+			this.setResponseContent(list);
 		} catch (Exception e) {
 			e.printStackTrace();
 

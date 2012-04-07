@@ -49,7 +49,7 @@ public class UserController extends GenericRestfulController {
 		try {
 			model = userService.find(model.getId());
 
-			this.setlResponseContent(model);
+			this.setResponseContent(model);
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -64,7 +64,7 @@ public class UserController extends GenericRestfulController {
 		try {
 			list = userService.find();
 
-			this.setlResponseContent(list);
+			this.setResponseContent(list);
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -79,7 +79,7 @@ public class UserController extends GenericRestfulController {
 		try {
 			userService.create(model);
 
-			this.setlResponseContent(model);
+			this.setResponseContent(model);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -95,7 +95,7 @@ public class UserController extends GenericRestfulController {
 		try {
 			userService.update(model);
 
-			this.setlResponseContent(model);
+			this.setResponseContent(model);
 		} catch (Exception e) {
 			e.printStackTrace();
 

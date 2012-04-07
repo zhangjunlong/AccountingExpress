@@ -43,7 +43,7 @@ public class AccountController extends GenericRestfulController {
 			e.printStackTrace();
 		}
 
-		return new DefaultHttpHeaders("index").disableCaching();
+		return DISABLE_CACHING_SHOW;
 	}
 
 	@Override
@@ -51,14 +51,14 @@ public class AccountController extends GenericRestfulController {
 		try {
 			list = accountService.find();
 
-			this.setlResponseContent(list);
+			this.setResponseContent(list);
 		} catch (Exception e) {
 			e.printStackTrace();
 
 			this.setFailedResponseContent();
 		}
 
-		return new DefaultHttpHeaders("index").disableCaching();
+		return DISABLE_CACHING_INDEX;
 	}
 
 	@Override
@@ -73,7 +73,7 @@ public class AccountController extends GenericRestfulController {
 			this.setFailedResponseContent();
 		}
 
-		return new DefaultHttpHeaders("success").setLocationId(model.getId());
+		return getHttpHeaderOfCreated(model.getId());
 	}
 
 	@Override

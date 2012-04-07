@@ -29,9 +29,17 @@ public abstract class GenericRestfulController extends ValidationAwareSupport
 	/**
 	 * HTTP Header of code 202
 	 */
-	protected static HttpHeaders ACCEPTED;
+	protected static final HttpHeaders ACCEPTED;
 
-	protected static HttpHeaders INTERNAL_SERVER_ERROR;
+	protected static final HttpHeaders INTERNAL_SERVER_ERROR;
+
+	protected static final HttpHeaders OK = new DefaultHttpHeaders("success");
+
+	protected static final DefaultHttpHeaders DISABLE_CACHING_INDEX = new DefaultHttpHeaders(
+			"index").disableCaching();
+
+	protected static final DefaultHttpHeaders DISABLE_CACHING_SHOW = new DefaultHttpHeaders(
+			"show").disableCaching();
 
 	protected Map<String, Object> session;
 
@@ -147,7 +155,7 @@ public abstract class GenericRestfulController extends ValidationAwareSupport
 	 * 
 	 * @param data
 	 */
-	protected void setlResponseContent(Object data) {
+	protected void setResponseContent(Object data) {
 		this.returnResponseContent = false;
 
 		setModel(data);
@@ -172,4 +180,7 @@ public abstract class GenericRestfulController extends ValidationAwareSupport
 		responseContent = new ResponseContent(ResponseContent.FAILURE);
 	}
 
+	protected DefaultHttpHeaders getHttpHeaderOfCreated(Object id) {
+		return new DefaultHttpHeaders("success").setLocationId(id);
+	}
 }

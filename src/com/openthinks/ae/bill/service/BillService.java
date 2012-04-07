@@ -16,6 +16,8 @@ public interface BillService {
 	 */
 	Collection<Bill> find(long uid) throws Exception;
 
+	void update(Bill bill, long operatorId) throws Exception;
+
 	void delete(long msgId) throws Exception;
 
 }

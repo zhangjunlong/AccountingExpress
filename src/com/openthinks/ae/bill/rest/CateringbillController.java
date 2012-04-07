@@ -50,8 +50,15 @@ public class CateringbillController extends GenericRestfulController {
 
 	@Override
 	public HttpHeaders show() {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			model = (CateringBill) billService.find(model.getId());
+
+			this.setResponseContent(model);
+
+			return DISABLE_CACHING_SHOW;
+		} catch (Exception e) {
+			return INTERNAL_SERVER_ERROR;
+		}
 	}
 
 	@Override
@@ -63,9 +70,9 @@ public class CateringbillController extends GenericRestfulController {
 
 			Collection<Bill> bills = billService.find(uid);
 
-			this.setlResponseContent(bills);
+			this.setResponseContent(bills);
 
-			return new DefaultHttpHeaders("index").disableCaching();
+			return DISABLE_CACHING_INDEX;
 
 		} catch (Exception e) {
 			logger.debug(e);
@@ -82,8 +89,7 @@ public class CateringbillController extends GenericRestfulController {
 		try {
 			billService.create(model, uid);
 
-			return new DefaultHttpHeaders("success").setLocationId(model
-					.getId());
+			return getHttpHeaderOfCreated(model.getId());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -93,8 +99,17 @@ public class CateringbillController extends GenericRestfulController {
 
 	@Override
 	public String update() {
-		// TODO Auto-generated method stub
-		return null;
+		long uid = (Long) session.get("id");
+		try {
+			billService.update(model, uid);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			logger.error(e);
+		}
+
+		return "success";
 	}
 
 	@Override
