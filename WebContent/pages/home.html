@@ -16,11 +16,17 @@
 	        si.utils.uname = si.utils.url.getParameter("uname");
 		    
 		    $.get('../user/'+si.utils.id+'.json',function (data){
-		    	if(null != data.name && ''!=data.name)
-			    	$('title').prepend(data.name+"的");
-		    	else
-		    		$("title").prepedn(data.uname+"的");
-		    	$('#name').html(data.name);
+		    	var uname = si.utils.uname;
+		    	var name = null;
+		    	if(null != data.name && ''!=data.name) {
+		    		name=data.name
+		    	}
+		    	else {	
+					name=si.utils.uname
+		    	}
+		    	
+		    	$('#name').html(name);
+	    		$("title").prepend(uname+"的");
 		    });
 		    
 			$("#msgs").fadeIn("slow");

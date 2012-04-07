@@ -26,7 +26,7 @@
 
 				$.each(data, function(index, obj) {
 					$('#data').append('<tr id="' + obj.id + '" onclick="update(this);"></tr>');
-					$('#'+obj.id).append('<td>' + obj.userId + '</td>');
+					$('#'+obj.id).append('<td>' + obj.uname + '</td>');
 					$('#'+obj.id).append('<td>' + obj.name + '</td>');
 				});
 				
@@ -39,7 +39,7 @@
 				url:'../../user/'+obj.id+'.json',
 				callback: function(data){
 					$('#id').val(data.id);
-					$('#userId').val(data.userId);
+					$('#uname').val(data.uname);
 					$('#name').val(data.name);
 					$('#pwd').val(data.password);
 					$('#desc').val(data.description);
@@ -100,7 +100,7 @@
 	<div id="operation" class="rimmed floatLeft hidden">	
 		<h3 id="currentDaoOperation">创建</h3>
 		<form id="daoForm" action="../../user.json" method="post">
-			<label for="userId">账号 ID</label><input id ="userId" type="text" name="userId" class="required"/> <br/>
+			<label for="uname">账号 ID</label><input id ="uname" type="text" name="uname" class="required"/> <br/>
 			<label for="pwd">账号密码</label><input id ="pwd" type="text" name="password" class="required"/> <br/>
 			<label for="name">账号名称</label><input id="name" type="text" name="name" class="required"/> <br/>
 			<label for="desc" class="textareaLabel">描述</label><textarea id="desc" name="description" ></textarea> <br/>

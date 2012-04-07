@@ -11,7 +11,7 @@
 	<div id="top">
 		<div class="floatLeft">AccEx&trade;</div>
 		${sessionScope.uname} [${sessionScope.name} / ${sessionScope.roleName}]
-		 | <a href="../pages/home.html?id=${sessionScope.id}&uname=${sessionScope.name}" target="_main">打开主页</a>
+		 | <a href="../pages/home.html?id=${sessionScope.id}&uname=${sessionScope.uname}" target="_main">打开主页</a>
 		 | <a href="../sign/0/out" target="_top">退出</a>
 		 | <a href="#">帮助</a>
 	</div>
