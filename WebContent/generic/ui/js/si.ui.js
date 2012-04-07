@@ -9,7 +9,7 @@
  */
 
 var si = si ? si : {};
-si.ui = si.ui ? ui : {};
+si.ui = si.ui ? si.ui : {};
 
 /**
  * Clear content

@@ -55,8 +55,9 @@ public class SignController extends ValidationAwareSupport implements
 
 			msg = new ResponseContent(ResponseContent.SUCCESS);
 			addActionMessage("Account created successfully");
+
 			return new DefaultHttpHeaders("success").setLocation(model
-					.getUserId());
+					.getUname());
 		} catch (Exception e) {
 			msg = new ResponseContent(ResponseContent.FAILURE);
 			addActionMessage("Account created failed");
@@ -76,20 +77,22 @@ public class SignController extends ValidationAwareSupport implements
 	public HttpHeaders in() throws Exception {
 		Map<String, Object> session = ActionContext.getContext().getSession();
 
-		Account account = accountService.authorize(model.getUserId(),
+		Account account = accountService.authorize(model.getUname(),
 				model.getPassword());
 
 		if (account != null) {
-
 			session.put("id", account.getId());
+			session.put("uname", account.getUname());
+			session.put("name", account.getName());
 			session.put("role", account.getRole());
+
 			if (account.getRole().equals("admin"))
 				session.put("roleName", "管理员");
 			else
 				session.put("roleName", "普通用户");
 
 			msg = new ResponseContent(ResponseContent.SUCCESS, "console");
-			msg.setData(account);
+			msg.setExtend(account);
 
 			if (account.getRole().equals(Role.ADMIN)) {
 
@@ -101,12 +104,12 @@ public class SignController extends ValidationAwareSupport implements
 			} else {
 
 				msg.setDescription("client");
-				msg.setData(account);
+				msg.setExtend(account);
 				logger.info("Account: " + account.getId()
 						+ " signed in as a user.");
 
 				return new DefaultHttpHeaders("success").setLocation(model
-						.getUserId());
+						.getUname());
 			}
 
 		} else {
@@ -134,7 +137,7 @@ public class SignController extends ValidationAwareSupport implements
 	 * @throws Exception
 	 */
 	public String check() throws Exception {
-		Account acc = accountService.find(model.getUserId());
+		Account acc = accountService.find(model.getUname());
 		if (acc != null) {
 			msg = new ResponseContent(ResponseContent.FAILURE, "用户名已存在");
 		} else {

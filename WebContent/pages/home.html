@@ -7,16 +7,19 @@
 	<script type="text/javascript" src="../generic/js/jquery.js"></script>
 	<script type="text/javascript" src="../generic/js/jquery.pagination.js"></script>
 	<script type="text/javascript" src="../generic/js/HashMap.js"></script>
+	<script type="text/javascript" src="../generic/js/si.utils.js"></script>
 	<script type="text/javascript" src="../generic/ui/js/si.ui.js"></script>
-	<script type="text/javascript" src="js/utils.js"></script>
 	<title>主页</title>
 	<script type="text/javascript">
 		$(document).ready(function(){
-	        utils.userId = utils.getParameter("userId");
-	        utils.userName = utils.getParameter("userName");
+	        si.utils.id = si.utils.url.getParameter("id");
+	        si.utils.uname = si.utils.url.getParameter("uname");
 		    
-		    $.get('../user/'+utils.userId+'.json',function (data){
-			    $('title').prepend(data.name+"的");
+		    $.get('../user/'+si.utils.id+'.json',function (data){
+		    	if(null != data.name && ''!=data.name)
+			    	$('title').prepend(data.name+"的");
+		    	else
+		    		$("title").prepedn(data.uname+"的");
 		    	$('#name').html(data.name);
 		    });
 		    

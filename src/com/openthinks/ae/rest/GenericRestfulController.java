@@ -139,7 +139,7 @@ public abstract class GenericRestfulController extends ValidationAwareSupport
 		this.returnResponseContent = true;
 		responseContent = new ResponseContent(ResponseContent.SUCCESS);
 
-		responseContent.setData(model);
+		responseContent.setExtend(model);
 	}
 
 	/**

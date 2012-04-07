@@ -18,9 +18,6 @@ public class User extends Account implements Profile {
 	@Column(length = 10, unique = true)
 	private String gender;
 
-	@Column(length = 30)
-	private String name;
-
 	@Column(length = 128)
 	private String picture;
 
@@ -32,14 +29,6 @@ public class User extends Account implements Profile {
 
 	public User() {
 		super();
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public String getPicture() {

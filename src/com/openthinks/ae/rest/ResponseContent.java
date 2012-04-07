@@ -9,7 +9,7 @@ public class ResponseContent {
 	private String status;
 	private String description;
 	// Extend message object to be return;
-	private Object data;
+	private Object extend;
 
 	public ResponseContent() {
 		super();
@@ -42,12 +42,12 @@ public class ResponseContent {
 		this.description = description;
 	}
 
-	public Object getData() {
-		return data;
+	public Object getExtend() {
+		return extend;
 	}
 
-	public void setData(Object extend) {
-		this.data = extend;
+	public void setExtend(Object extend) {
+		this.extend = extend;
 	}
 
 }

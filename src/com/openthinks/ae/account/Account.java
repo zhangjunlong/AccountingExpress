@@ -16,10 +16,13 @@ import javax.persistence.Id;
 public class Account {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	private long id; // Internal id
 
 	@Column(unique = true)
-	private String userId;
+	private String uname; // Unique name for login
+
+	@Column(length = 30)
+	private String name; // Real name or nickname for display
 
 	private String description;
 
@@ -36,12 +39,12 @@ public class Account {
 		this.id = id;
 	}
 
-	public String getUserId() {
-		return userId;
+	public String getUname() {
+		return uname;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setUname(String userId) {
+		this.uname = userId;
 	}
 
 	public String getDescription() {
@@ -66,6 +69,14 @@ public class Account {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

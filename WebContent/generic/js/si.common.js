@@ -38,7 +38,6 @@ var ajaxFormOptions = {
  *            form ID String , optional
  */
 function convertToAjaxForm(formId) {
-	var forms = null;
 
 	if (null == formId) {
 		$.each($('form'), function(i, form) {
@@ -59,7 +58,6 @@ function convertToAjaxForm(formId) {
  * Bind validation on form
  */
 function bindAjaxFormValidation(formId) {
-	var forms = null;
 
 	if (null == formId) {
 		$.each($('form'), function(i, form) {

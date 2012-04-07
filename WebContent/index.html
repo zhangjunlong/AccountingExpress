@@ -15,7 +15,7 @@
 				function() {
 					$("#sign").fadeIn("slow");
 					$("#footer").slideDown("1000");
-					$("#uid").focus();
+					si.ui.focusFirstInput();
 
 					var options = {
 						dataType : 'json',
@@ -36,7 +36,7 @@
 								$("#sign").fadeOut("slow");
 								
 								if (data.description == 'client')
-									window.location = 'pages/home.html?userId='+data.data.id+'&userName='+data.data.userId;
+									window.location = 'pages/home.html?id='+data.extend.id+'&uname='+data.extend.uname;
 								else
 									window.location = 'console/';
 							} else {
@@ -66,7 +66,7 @@
 			<span id="err" class="error msg"></span>
 		</p>
 		<form id="signForm" method="GET">
-			<label for="uid">用户 </label><input id="uid" type="text" name="userId" tabindex="1"/><br/><br/>
+			<label for="uname">用户 </label><input id="uname" type="text" name="uname" tabindex="1"/><br/><br/>
 			<label for="pwd">密码 </label><input id="pwd" type="password" name="password" tabindex="2"/><br/><br/>
 			<button type="submit" value="登录" >登录</button>&nbsp;&nbsp;&nbsp;&nbsp;
 			<button type="reset" value="清除" >清除</button>

@@ -47,10 +47,10 @@ public class AccountDaoJpaImpl extends GenericJpaDaoBean<Account, Long>
 	}
 
 	@Override
-	public Account read(String userId) throws Exception {
-		String ql = "select a from Account a where a.userId = ?0";
+	public Account read(String uname) throws Exception {
+		String ql = "select a from Account a where a.uname = ?0";
 		Query query = em.createQuery(ql);
-		query.setParameter(0, userId);
+		query.setParameter(0, uname);
 
 		try {
 			return (Account) query.getSingleResult();

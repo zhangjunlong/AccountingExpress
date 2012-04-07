@@ -16,7 +16,7 @@ public interface AccountService {
 	 * 
 	 * @return
 	 */
-	Account authorize(String id, String password) throws Exception;
+	Account authorize(String uname, String password) throws Exception;
 
 	/**
 	 * Find out an account by account's id
@@ -40,6 +40,13 @@ public interface AccountService {
 
 	void delete(long id) throws Exception;
 
-	Account find(String userId) throws Exception;
+	/**
+	 * Find an account by uname
+	 * 
+	 * @param uname
+	 * @return
+	 * @throws Exception
+	 */
+	Account find(String uname) throws Exception;
 
 }

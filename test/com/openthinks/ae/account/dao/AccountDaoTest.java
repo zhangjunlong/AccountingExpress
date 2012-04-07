@@ -26,7 +26,7 @@ public class AccountDaoTest extends SpringTestSupport {
 		String userId = "zhangjunlong";
 
 		Account account = new Account();
-		account.setUserId(userId);
+		account.setUname(userId);
 		account.setPassword("ithink");
 		account.setDescription("new");
 

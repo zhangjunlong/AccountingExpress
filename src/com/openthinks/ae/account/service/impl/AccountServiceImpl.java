@@ -19,13 +19,13 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public Account find(String userId) throws Exception {
-		return accountDao.read(userId);
+	public Account find(String uname) throws Exception {
+		return accountDao.read(uname);
 	}
 
 	@Override
-	public Account authorize(String userId, String password) throws Exception {
-		Account account = accountDao.read(userId);
+	public Account authorize(String uname, String password) throws Exception {
+		Account account = accountDao.read(uname);
 		if (account != null) {
 			if (password.equals(account.getPassword())) {
 				return account;

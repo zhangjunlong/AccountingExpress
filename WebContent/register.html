@@ -17,7 +17,7 @@
 					
 					$("#sign").fadeIn("slow");
 					$("#footer").slideDown("1000");
-					$("#uid").focus();
+					si.ui.focusFirstInput();
 
 					var options = {
 						dataType : 'json',
@@ -61,10 +61,10 @@
 				});
 		
 		var checkAvailiable = function() {
-			var userId = $("#uid").val();
+			var uname = $("#uname").val();
 			si.ui.showLoading("uidTip");
 			//$('#submitBtn').attr('disabled','disabled');
-			$.get("sign/0/check.json?userId="+userId,function(data){
+			$.get("sign/0/check.json?uname="+uname,function(data){
 				$("#uidTip").html(data.description);
 				//$('#submitBtn').attr('disabled','');
 			});
@@ -83,7 +83,7 @@
 			<span id="err" class="error msg"></span>
 		</p>
 		<form id="registerForm" method="POST">
-			<label for="uid">用户名 </label><input id="uid" type="text" name="userId" tabindex="1" class="email required" onkeyup="checkAvailiable();"/>
+			<label for="uname">用户名 </label><input id="uname" type="text" name="uname" tabindex="1" class="email required" onkeyup="checkAvailiable();"/>
 			<div id ="uidTip" class="tip">请输入一个电子邮件地址</div>
 			<br/><br/>
 			<label for="pwd">密码 </label><input id="pwd" type="password" name="password" tabindex="2" class="required"/><br/><br/>

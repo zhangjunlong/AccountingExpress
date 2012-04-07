@@ -19,14 +19,14 @@ public class AccountServiceTest extends SpringTestSupport {
 	@Test
 	public void testCreate() {
 		Account account = new Account();
-		account.setUserId("sa");
+		account.setUname("sa");
 		account.setPassword("sa");
 
 		try {
 			accountService.create(account);
 
-			assertEquals(account.getUserId(),
-					accountService.find(account.getId()).getUserId());
+			assertEquals(account.getUname(),
+					accountService.find(account.getId()).getUname());
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail(e.getMessage());

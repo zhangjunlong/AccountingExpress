@@ -42,7 +42,7 @@ public class InitiateServlet extends HttpServlet {
 		String pw = pr.getProperties("admin.password");
 
 		Account defAcc = new Account();
-		defAcc.setUserId(un);
+		defAcc.setUname(un);
 		defAcc.setRole(Role.ADMIN);
 		defAcc.setPassword(pw);
 
