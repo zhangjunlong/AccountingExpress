@@ -176,7 +176,7 @@ label.error{width:100%;}
 /* Division */
 .menubar{dispaly:block;text-align:left;}
 .toolbar{dispaly:block;text-align:right;}
-.querybar{dispaly:block;text-align:left;border-top:1px solid #cccccc;padding:2px;}
+.querybar{dispaly:block;text-align:right;border-top:1px solid #cccccc;padding:2px;}
 .querybar label{vertical-align:middle;}
 
 /* Table */
