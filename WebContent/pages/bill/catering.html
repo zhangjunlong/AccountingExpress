@@ -4,11 +4,13 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link href="../../generic/css/basic.css" rel="stylesheet" type="text/css" />
 	<link href="../../generic/ui/css/ui.css" rel="stylesheet" type="text/css" />
+	<link href="../../generic/ui/css/ui-lightness/jquery-ui-1.8.19.custom.css" rel="Stylesheet" type="text/css" />
 	<script type="text/javascript" src="../../generic/js/jquery.js"></script>
 	<script type="text/javascript" src="../../generic/js/jquery.form.js"></script>
 	<script type="text/javascript" src="../../generic/js/jquery.validate.js"></script>
 	<script type="text/javascript" src="../../generic/ui/js/si.ui.js"></script>
 	<script type="text/javascript" src="../../generic/js/si.common.js"></script>
+	<script type="text/javascript" src="../../generic/ui/js/jquery-ui-1.8.19.custom.min.js"></script>
 	<title>餐饮账单</title>
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -16,6 +18,9 @@
 			showAll();
 
 			bindAjaxFormValidation();
+			
+			$("#beginDate").datepicker();
+			
 			$("#footer").slideDown("slow");
 		});
 
@@ -94,8 +99,10 @@
 		<div class="toolbar">
 			<button onclick="$('#colorSize').empty();si.ui.dao.create();">新建+</button>
 		</div>
-		<div class="querybar">
+		<div class="querybar right">
 			<input id="qstyleNo" onkeypress="if(event.keyCode==13) {$('#searchbtn').click();}" />
+			<input id="beginDate" class=".datepicker" size="3"/>
+			<input id="endDate" class=".datepicker" size="3"/>
 			<button id="searchbtn" onclick="showProduct();">查找</button>
 		</div>
 		<table class="data">
@@ -143,14 +150,29 @@
 			</tbody>
 			</form>
 			<tbody id="data">
-					
-			
+			<!-- Append Data Here -->
 			</tbody>
 			<tfoot>
 				<tr>
 					<td id="pageBar" colspan="3"></td>
 				</tr>
 			</tfoot>
+		</table>
+	</div>
+	<div class="rimmed">
+		<table class="data">
+			<thead>
+				<tr>
+					<td>金额</td>
+					<td>现金</td>
+					<td>签单</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					
+				</tr>
+			</tbody>
 		</table>
 	</div>
 </div>
