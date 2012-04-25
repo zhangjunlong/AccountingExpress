@@ -27,6 +27,7 @@
 		    	
 		    	$('#name').html(name);
 	    		$("title").prepend(uname+"的");
+	    		('#tenant').html(data.tenant.name);
 		    });
 		    
 			$("#msgs").fadeIn("slow");
@@ -36,29 +37,29 @@
 	</script>
 </head>
 <body>
-<div id="top" class="blueBar"><div class="floatLeft"><a>AccEx&trade;</a></div> | <a href="../sign/0/out">登出</a></div>
+<div id="top" class="blueBar">
+	<div class="brand floatLeft"><a>AccEx&trade;</a></div> 
+	<div class="left inlineBlock">
+			<img class="smallAvatar inlineBlock middle" src="../generic/images/na_male.gif"/>
+			<div class="imageBlockContent inlineBlock">
+				<input type="hidden" id="accountId"/>
+				<span id="name"></span>
+			</div>
+	</div>
+	| <a href="../sign/0/out">登出</a>
+</div>
 <div id="main" class="center">
-	<div id="content" class="rimmed floatLeft" style="width:67%">
+	<div id="content" class="rimmed floatCenter" style="width:98%">
 		<h1>我的应用</h1>
 		<p>
 			<span id="err" class="err"></span><br/>
 		</p>
-		<div id="apps">
-			<div class="rimmed inlineBlock">
-				<a href="bill/catering.html">餐饮账单</a>
-			</div>
+		<div id="apps" class="apps inlineBlock">
+			<a href="bill/catering.html">
+			<img alt="餐饮帐务" src="../generic/images/apps/app_catering.png" />
+			</a>
+			<div>餐饮账单</div>
 		</div>
-	</div>
-	<div id="sidebar" class="rimmed floatRight" style="width:30%">
-		<div class="metal left inlineBlock">
-			<img class="inlineBlock middle" src="../generic/images/na_male.gif"/>
-			<div class="imageBlockContent inlineBlock" style="height:48px">
-				<input type="hidden" id="accountId"/>
-				<h1 id="name"></h1>
-				<h3>“<em id="status"> 个性签名 </em>”</h3>
-			</div>
-		</div>
-		<h2 class="dark">登录日志</h2>
 	</div>
 </div>
 <div id="footer" class="hidden">&nbsp;&nbsp;&copy; Smart Interactive&trade; System Technology</div>
