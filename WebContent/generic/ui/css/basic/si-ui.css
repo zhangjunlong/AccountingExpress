@@ -2,7 +2,7 @@
 /**
  *Copyright (c) Junlong Zhang
  *
- *Generic style definitions for user interface of web applcations
+ *Generic style definitions for user interface of web applications
  *
  */
 
@@ -66,7 +66,7 @@ label {display: inline-block;vertical-align:middle;text-align:right;width:65px}
 .inlineBlock {display: inline-block;}
 
 .hidden{display:none;}
-.lock{position:absolute; top:0; left:0; width:99%; height: 99%; background-color: black; filter:alpha(opacity=50); -moz-opacity:0.5; opacity: 0.5;BACKGROUND:url(../images/loading.gif) #FFF no-repeat center; }
+.lock{position:absolute; top:0; left:0; width:99%; height: 99%; background-color: black; filter:alpha(opacity=50); -moz-opacity:0.5; opacity: 0.5;BACKGROUND:url(images/loading.gif) #FFF no-repeat center; }
 
 .white{background-color:#ffffff}
 
@@ -98,7 +98,7 @@ label {display: inline-block;vertical-align:middle;text-align:right;width:65px}
 .copyright {font:15px serif,sans-serif,arial;color: silver;*font-size:small;*font:x-small}
 
 /* Window Elements */
-.loadCircle{width:20px;height:20px;background:url(../images/loading.gif) #FFF no-repeat center; }
+.loadCircle{width:20px;height:20px;background:url(images/loading.gif) #FFF no-repeat center; }
 
 /* Tabs */
 #tabs{height:24px;overflow:hidden;}
