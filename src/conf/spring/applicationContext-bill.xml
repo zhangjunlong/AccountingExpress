@@ -18,4 +18,6 @@
 
 	<bean id="billDao" class="com.openthinks.ae.bill.dao.impl.BillDaoJpaImpl" />
 
+	<bean id="billStatisticsDao" class="com.openthinks.ae.bill.dao.impl.BillStatisticsDaoImpl" />
+
 </beans>

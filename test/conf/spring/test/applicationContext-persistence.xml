@@ -48,7 +48,7 @@
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="persistenceUnitManager" ref="persistenceUnitManager" />
-		<property name="persistenceUnitName" value="womsTest" />
+		<property name="persistenceUnitName" value="AccountingExpressTest" />
 	</bean>
 
 	<!--
